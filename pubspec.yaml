@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^0.5.12+4
+  fluttericon: ^1.0.7
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -55,6 +57,16 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
+  fonts:
+    - family: Oxygen
+      fonts:
+        - asset: fonts/Oxygen-Sans.ttf
+        - asset: fonts/Oxygen-Sans-Bold.ttf
+          weight : 500
+    - family: OxygenMono
+      fonts:
+        - asset: fonts/OxygenMono-Regular.ttf
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
