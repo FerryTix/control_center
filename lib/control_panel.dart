@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:fluttericon/font_awesome_icons.dart';
 
 const BISLICH = "Bislich";
@@ -17,12 +16,38 @@ class ControlPanel extends StatefulWidget {
 }
 
 class _ControlPanel extends State<ControlPanel> {
+  Future<bool> _onBackButtonPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text("Abmelden?"),
+            content: new Text(
+                'Bist Du sicher, dass Du Dich abmelden willst?\nDen Zugangscode musst du dann erneut eingeben.'),
+            actions: <Widget>[
+              new GestureDetector(
+                onTap: () => Navigator.of(context).pop(false),
+                child: Text("Angemeldet bleiben"),
+              ),
+              SizedBox(height: 16),
+              new GestureDetector(
+                onTap: () => Navigator.of(context).pop(true),
+                child: Text("Abmelden"),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       child: OrientationBuilder(builder: (context, orientation) {
         return Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.white, //change your color here
+            ),
             title: Text(
               orientation == Orientation.portrait
                   ? "Wilkommen, " + "Hendrik" + "."
@@ -40,7 +65,8 @@ class _ControlPanel extends State<ControlPanel> {
         );
       }),
       onWillPop: () {
-        return Future<bool>.value(false);
+        return _onBackButtonPressed();
+        // return Future<bool>.value(false);
       },
     );
   }
@@ -73,12 +99,27 @@ class _ControlPanel extends State<ControlPanel> {
         Expanded(
           flex: 2,
           child: Container(
-            color: Colors.black87,
-            child: Center(
-              child: Text(
-                shores[shore][SHORE_NAME],
-                style: Theme.of(context).textTheme.headline4,
-              ),
+            color: Colors.black45,
+            child: Row(
+              children: [
+                Spacer(),
+                Center(
+                  child: Text(
+                    shores[shore][SHORE_NAME],
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                ),
+                Center(
+                  child: IconButton(
+                    icon: Icon(
+                      FontAwesome.info_circled,
+                    ),
+                    color: Colors.white,
+                    iconSize: 18,
+                  ),
+                ),
+                Spacer(),
+              ],
             ),
           ),
         ),
@@ -93,8 +134,19 @@ class _ControlPanel extends State<ControlPanel> {
             child: Row(
               children: [
                 Spacer(flex: 2),
-                Icon(
-                  Icons.person,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade100,
+                    shape: BoxShape.circle,
+                  ),
+                  child: SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: Icon(
+                      Icons.person,
+                      size: 24,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Center(
@@ -107,8 +159,19 @@ class _ControlPanel extends State<ControlPanel> {
                 Spacer(
                   flex: 1,
                 ),
-                Icon(
-                  Icons.pedal_bike,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade100,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: Icon(
+                      Icons.pedal_bike,
+                      size: 24,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Center(
@@ -144,22 +207,17 @@ class _ControlPanel extends State<ControlPanel> {
                   icon: Icon(
                     shores[shore][VENDING_STATUS]
                         ? FontAwesome.circle
-                        : FontAwesome.circle_thin,
+                        : FontAwesome.circle,
+                    //: FontAwesome.circle_thin,
                     size: 48,
-                    color: Colors.green,
+                    color: shores[shore][VENDING_STATUS]
+                        ? Theme.of(context).primaryColor
+                        : Colors.green.shade50,
                   ),
                 ),
-                /*Expanded(
-                  child: Center(
-                    child: Text(
-                      "15",
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ),
-                ),*/
-                Spacer(
+                /*Spacer(
                   flex: 1,
-                ),
+                ),*/
                 IconButton(
                   onPressed: () {
                     shores[shore][VENDING_STATUS] = false;
@@ -177,8 +235,11 @@ class _ControlPanel extends State<ControlPanel> {
                   icon: Icon(
                       !shores[shore][VENDING_STATUS]
                           ? FontAwesome.circle
-                          : FontAwesome.circle_thin,
-                      color: Colors.red,
+                          : FontAwesome.circle,
+                      //: FontAwesome.circle_thin,
+                      color: shores[shore][VENDING_STATUS]
+                          ? Colors.red.shade50
+                          : Colors.red,
                       size: 48),
                 ),
                 /*Expanded(
@@ -204,8 +265,27 @@ class _ControlPanel extends State<ControlPanel> {
         ),
         Expanded(
           flex: 3,
-          child: Container(
-            color: Colors.blue.shade100,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Icon(FontAwesome.ship),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Icon(Icons.arrow_forward),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Expanded(

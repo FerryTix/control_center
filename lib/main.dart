@@ -39,7 +39,7 @@ class ControlCenterApp extends StatelessWidget {
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
           headline4: TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontFamily: "Oxygen",
             fontWeight: FontWeight.w500,
             color: Colors.white,
