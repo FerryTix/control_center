@@ -51,7 +51,7 @@ class _ControlPanel extends State<ControlPanel> {
             title: Text(
               orientation == Orientation.portrait
                   ? "Wilkommen, " + "Hendrik" + "."
-                  : "Wilkommen im Fähr Trade Control Center, " +
+                  : "Wilkommen im FerryTix Control Center, " +
                       "Hendrik" +
                       ".",
               style: TextStyle(
